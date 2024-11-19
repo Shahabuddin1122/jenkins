@@ -5,6 +5,10 @@ pipeline {
     stage("build") {
       steps {
         echo "building the application......"
+        nodejs("NodeJs-23.2.0") {
+          sh 'cd backend'
+          sh 'node index.js'
+        }
       }
     }
     stage("test") {
