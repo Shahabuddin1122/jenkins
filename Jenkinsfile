@@ -1,25 +1,25 @@
 pipeline {
-  agent any
-  
-  stages {
-    stage("build") {
-      steps {
-        echo "building the application......"
-        nodejs("NodeJs-23.2.0") {
-          sh 'cd backend'
-          sh 'npm i'
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/your-repo/simple-node-api.git'
+            }
         }
-      }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker-compose build'
+            }
+        }
+        stage('Run Docker Containers') {
+            steps {
+                sh 'docker-compose up -d'
+            }
+        }
+        stage('Post-Deployment Test') {
+            steps {
+                sh 'curl http://localhost:3000'
+            }
+        }
     }
-    stage("test") {
-      steps {
-        echo "testing the application......"
-      }
-    }
-    stage("deploying") {
-      steps {
-        echo "deploying the application......"
-      }
-    }
-  }
 }
