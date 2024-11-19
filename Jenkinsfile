@@ -7,7 +7,7 @@ pipeline {
         echo "building the application......"
         nodejs("NodeJs-23.2.0") {
           sh 'cd backend'
-          sh 'node index.js'
+          sh 'npm i'
         }
       }
     }
