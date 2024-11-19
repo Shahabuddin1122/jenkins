@@ -1,25 +1,38 @@
 pipeline {
     agent any
     stages {
-        stage('Clone Repository') {
+        stage('Pull Latest Code') {
             steps {
-                git 'https://github.com/Shahabuddin1122/jenkins.git'
+                echo 'Pulling code from GitHub...'
+                checkout scm
             }
         }
         stage('Build Docker Image') {
             steps {
+                echo 'Building Docker image...'
                 sh 'docker-compose build'
             }
         }
-        stage('Run Docker Containers') {
+        stage('Deploy Docker Containers') {
             steps {
+                echo 'Starting Docker containers...'
                 sh 'docker-compose up -d'
             }
         }
-        stage('Post-Deployment Test') {
+        stage('Run Tests') {
             steps {
-                sh 'curl http://localhost:3000'
+                echo 'Testing the service...'
+                // Simple test to verify the service is running
+                sh 'curl --fail http://localhost:3000 || exit 1'
             }
+        }
+    }
+    post {
+        success {
+            echo 'Build and deployment successful!'
+        }
+        failure {
+            echo 'Build or deployment failed!'
         }
     }
 }
