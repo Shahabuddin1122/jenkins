@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/your-repo/simple-node-api.git'
+                git 'https://github.com/Shahabuddin1122/jenkins.git'
             }
         }
         stage('Build Docker Image') {
