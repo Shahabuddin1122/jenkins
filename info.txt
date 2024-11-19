@@ -1,0 +1,4 @@
+username: jenkins-user
+password: #Sh@019827hri
+full name: Shahabuddin Akhon
+Email: shavoddin54@gmail.com
