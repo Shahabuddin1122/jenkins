@@ -1,8 +1,6 @@
 pipeline {
-    agent any
-    tools {
-        nodejs 'NodeJs-23.2.0'
-        docker 'Docker'
+    agent {
+        docker {image 'node:16-alpine'}
     }
     stages {
         stage('Pull Latest Code') {
@@ -15,7 +13,6 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 sh 'npm version'
-                sh 'docker version'
             }
         }
         stage('Deploy Docker Containers') {
